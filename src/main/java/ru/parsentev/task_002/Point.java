@@ -1,6 +1,5 @@
 package ru.parsentev.task_002;
 
-import java.math.BigDecimal;
 import org.slf4j.Logger;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -22,8 +21,8 @@ public class Point {
     }
 
     public double distanceTo(final Point point) {
-        BigDecimal xSub = BigDecimal.valueOf(x).subtract(BigDecimal.valueOf(point.x));
-        BigDecimal ySub = BigDecimal.valueOf(y).subtract(BigDecimal.valueOf(point.y));
-        return Math.sqrt(((xSub.multiply(ySub)).add(ySub.multiply(ySub))).doubleValue());
+        int xDiff = x - point.x;
+        int yDiff = y - point.y;
+        return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
     }
 }
