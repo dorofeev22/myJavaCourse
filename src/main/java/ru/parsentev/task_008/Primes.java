@@ -1,7 +1,7 @@
 package ru.parsentev.task_008;
 
+import java.util.ArrayList;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -23,6 +23,21 @@ public class Primes {
     }
 
     public List<Integer> calc() {
-        throw new UnsupportedOperationException();
+        List<Integer> primes = new ArrayList<Integer>();
+        List<Integer> dividers = new ArrayList<Integer>();
+        for (int i = 2; i <= limit; i++) {
+            boolean isPrime = true;
+            for (Integer divider : dividers) {
+                int y = i % divider;
+                if (y == 0) {
+                    isPrime = false;
+                }
+            }
+            if (isPrime) {
+                primes.add(i);
+            }
+            dividers.add(i);
+        }
+        return primes;
     }
 }
