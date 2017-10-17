@@ -1,11 +1,11 @@
 package ru.parsentev.task_003;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import ru.parsentev.task_002.Point;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  * TODO: comment
@@ -13,8 +13,8 @@ import static org.junit.Assert.*;
  * @author parsentev
  * @since 28.07.2016
  */
-@Ignore
 public class TriangleTest {
+    @Ignore
     @Test
     public void calculateArea() {
         Point first = new Point(0, 0);
