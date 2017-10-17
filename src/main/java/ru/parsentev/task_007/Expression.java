@@ -1,7 +1,6 @@
 package ru.parsentev.task_007;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -21,6 +20,26 @@ public class Expression {
     }
 
     public double calc() {
-        throw new UnsupportedOperationException();
+        String[] numbers = expr.split("\\+");
+        if (numbers.length == 2) {
+            return Double.valueOf(numbers[0]) + Double.valueOf(numbers[1]);
+        }
+        numbers = expr.split("-");
+        if (numbers.length == 2) {
+            return Double.valueOf(numbers[0]) - Double.valueOf(numbers[1]);
+        }
+        numbers = expr.split("/");
+        if (numbers.length == 2) {
+            return Double.valueOf(numbers[0]) / Double.valueOf(numbers[1]);
+        }
+        numbers = expr.split("\\*");
+        if (numbers.length == 2) {
+            return Double.valueOf(numbers[0]) * Double.valueOf(numbers[1]);
+        }
+        numbers = expr.split("\\^");
+        if (numbers.length == 2) {
+            return Math.pow(Double.valueOf(numbers[0]), Double.valueOf(numbers[1]));
+        }
+        throw new IllegalStateException(expr + " - not supported operation");
     }
 }
