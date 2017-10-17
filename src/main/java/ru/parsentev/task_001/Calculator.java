@@ -1,6 +1,5 @@
 package ru.parsentev.task_001;
 
-import java.math.BigDecimal;
 import org.slf4j.Logger;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -18,26 +17,22 @@ public class Calculator {
     }
 
     public void add(double first, double second) {
-        BigDecimal addResult = BigDecimal.valueOf(first).add(BigDecimal.valueOf(second));
-        result = addResult.doubleValue();
+        result = first + second;
     }
 
     public void substract(double first, double second) {
-        BigDecimal addResult = BigDecimal.valueOf(first).subtract(BigDecimal.valueOf(second));
-        result = addResult.doubleValue();
+        result = first - second;
     }
 
     public void multiple(double first, double second) {
-        BigDecimal addResult = BigDecimal.valueOf(first).multiply(BigDecimal.valueOf(second));
-        result = addResult.doubleValue();
+        result = first * second;
     }
 
     public void div(double first, double second) {
         if (second == 0.0) {
             throw new IllegalStateException("division by zero");
         } else {
-            BigDecimal addResult = BigDecimal.valueOf(first).divide(BigDecimal.valueOf(second));
-            result = addResult.doubleValue();
+            result = first / second;
         }
     }
 
