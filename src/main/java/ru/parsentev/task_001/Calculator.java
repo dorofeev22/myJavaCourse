@@ -1,7 +1,7 @@
 package ru.parsentev.task_001;
 
+import java.math.BigDecimal;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -11,28 +11,37 @@ import static org.slf4j.LoggerFactory.getLogger;
  */
 public class Calculator {
     private static final Logger log = getLogger(Calculator.class);
+    private double result;
 
     public double getResult() {
-        throw new UnsupportedOperationException();
+        return result;
     }
 
     public void add(double first, double second) {
-        throw new UnsupportedOperationException();
+        BigDecimal addResult = BigDecimal.valueOf(first).add(BigDecimal.valueOf(second));
+        result = addResult.doubleValue();
     }
 
     public void substract(double first, double second) {
-        throw new UnsupportedOperationException();
+        BigDecimal addResult = BigDecimal.valueOf(first).subtract(BigDecimal.valueOf(second));
+        result = addResult.doubleValue();
     }
 
     public void multiple(double first, double second) {
-        throw new UnsupportedOperationException();
+        BigDecimal addResult = BigDecimal.valueOf(first).multiply(BigDecimal.valueOf(second));
+        result = addResult.doubleValue();
     }
 
     public void div(double first, double second) {
-        throw new UnsupportedOperationException();
+        if (second == 0.0) {
+            throw new IllegalStateException("division by zero");
+        } else {
+            BigDecimal addResult = BigDecimal.valueOf(first).divide(BigDecimal.valueOf(second));
+            result = addResult.doubleValue();
+        }
     }
 
     public void expand(double first, double second) {
-        throw new UnsupportedOperationException();
+        result = Math.pow(first, second);
     }
 }

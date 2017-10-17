@@ -1,6 +1,5 @@
 package ru.parsentev.task_001;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
@@ -10,7 +9,6 @@ import static org.junit.Assert.*;
  * @author parsentev
  * @since 19.07.2016
  */
-@Ignore
 public class CalculatorTest {
 
     @Test
