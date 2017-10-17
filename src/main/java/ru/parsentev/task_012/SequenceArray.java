@@ -20,6 +20,17 @@ public class SequenceArray {
     }
 
     public boolean containsOneSequence() {
-        throw new UnsupportedOperationException();
+        int counterOfOnes = 0;
+        for (int value : values) {
+            if (value == 1) {
+                counterOfOnes++;
+            } else {
+                counterOfOnes = 0;
+            }
+            if (counterOfOnes == 3) {
+                return true;
+            }
+        }
+        return false;
     }
 }
