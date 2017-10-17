@@ -47,7 +47,7 @@ public class Triangle {
             throw new IllegalStateException("Triangle does not exist");
         }
     }
-    
+
     private double[] getArraySideLenght() {
         double firstSideLenght = Math.abs(first.distanceTo(second));
         double secondSideLenght = Math.abs(second.distanceTo(third));
