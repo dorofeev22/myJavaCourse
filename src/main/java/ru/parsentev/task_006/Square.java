@@ -1,7 +1,7 @@
 package ru.parsentev.task_006;
 
+import java.util.Arrays;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.parsentev.task_002.Point;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -28,6 +28,23 @@ public class Square {
     }
 
     public boolean exists() {
-        throw new UnsupportedOperationException();
+        double firstDistance = first.distanceTo(second);
+        double secondDistance = second.distanceTo(third);
+        double thirdDistance = third.distanceTo(fourth);
+        double fourthDistance = fourth.distanceTo(first);
+        double fifthDistance = first.distanceTo(third);
+        double sixthDistance = second.distanceTo(fourth);
+        double[] distances = 
+            {firstDistance, secondDistance, thirdDistance, 
+                fourthDistance, fifthDistance, sixthDistance};
+        Arrays.sort(distances);
+        if (distances[0] != 0) {
+            if (distances[4] == distances[5]) {
+                if (distances[1] == distances[2]) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

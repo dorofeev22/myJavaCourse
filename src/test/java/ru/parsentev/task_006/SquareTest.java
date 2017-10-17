@@ -1,9 +1,7 @@
 package ru.parsentev.task_006;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import ru.parsentev.task_002.Point;
-import ru.parsentev.task_005.RightTriangle;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -14,7 +12,6 @@ import static org.junit.Assert.*;
  * @author parsentev
  * @since 28.07.2016
  */
-@Ignore
 public class SquareTest {
     @Test
     public void checkExists() {
@@ -45,4 +42,15 @@ public class SquareTest {
         boolean result = new Square(first, second, third, fourth).exists();
         assertThat(result, is(false));
     }
+
+    @Test
+    public void inPoint() {
+        Point first = new Point(0, 0);
+        Point second = new Point(0, 0);
+        Point third = new Point(0, 0);
+        Point fourth = new Point(0, 0);
+        boolean result = new Square(first, second, third, fourth).exists();
+        assertThat(result, is(false));
+    }
+
 }
