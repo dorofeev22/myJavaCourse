@@ -1,7 +1,6 @@
 package ru.parsentev.task_015;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -21,6 +20,14 @@ public class CycleShift {
     }
 
     public int[] shift(int position) {
-        throw new UnsupportedOperationException();
+        for (int p = 0; p < position; p++) {
+            int lastValueIndex = values.length - 1;
+            int lastValue = values[lastValueIndex];
+            for (int i = lastValueIndex; i != 0; i--) {
+                values[i] = values[i - 1];
+            }
+            values[0] = lastValue;
+        }
+        return values;
     }
 }

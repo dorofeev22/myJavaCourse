@@ -1,8 +1,6 @@
 package ru.parsentev.task_015;
 
-import org.junit.Ignore;
 import org.junit.Test;
-import ru.parsentev.task_014.ReversePhrase;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -13,7 +11,6 @@ import static org.junit.Assert.*;
  * @author parsentev
  * @since 28.07.2016
  */
-@Ignore
 public class CycleShiftTest {
 
     @Test
