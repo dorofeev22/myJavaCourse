@@ -27,16 +27,19 @@ public class Primes {
         List<Integer> dividers = new ArrayList<Integer>();
         for (int i = 2; i <= limit; i++) {
             boolean isPrime = true;
-            for (Integer divider : dividers) {
+            double sqrtOfI = Math.sqrt((double)i);
+            for (int j = 0;  : ) {
+                Integer divider = dividers.get(j);
                 int y = i % divider;
                 if (y == 0) {
                     isPrime = false;
+                    break;
                 }
             }
             if (isPrime) {
                 primes.add(i);
+                dividers.add(i);
             }
-            dividers.add(i);
         }
         return primes;
     }
