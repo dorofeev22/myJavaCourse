@@ -15,7 +15,6 @@ import static org.slf4j.LoggerFactory.getLogger;
 public class IsoscelesTriangle extends Triangle {
 
     private static final Logger log = getLogger(IsoscelesTriangle.class);
-    private static final double EPSILON = 0.0001;
 
     public IsoscelesTriangle(Point first, Point second, Point third) {
         super(first, second, third);
@@ -35,17 +34,4 @@ public class IsoscelesTriangle extends Triangle {
                 || nearlyEqual(thirdSideLenght, firstSideLenght, EPSILON);
     }
 
-    public static boolean nearlyEqual(double a, double b, double epsilon) {
-        final double absA = Math.abs(a);
-        final double absB = Math.abs(b);
-        final double diff = Math.abs(a - b);
-
-        if (a == b) {
-            return true;
-        } else if (a == 0 || b == 0 || diff < Float.MIN_NORMAL) {
-            return diff < (epsilon * Float.MIN_NORMAL);
-        } else {
-            return diff / Math.min((absA + absB), Float.MAX_VALUE) < epsilon;
-        }
-    }
 }

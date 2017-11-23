@@ -13,6 +13,7 @@ import static org.slf4j.LoggerFactory.getLogger;
  * @since 28.07.2016
  */
 public class RightTriangle extends Triangle {
+
     private static final Logger log = getLogger(RightTriangle.class);
 
     public RightTriangle(Point first, Point second, Point third) {
@@ -21,13 +22,14 @@ public class RightTriangle extends Triangle {
 
     @Override
     public boolean exists() {
-        boolean isExists = super.exists();
-        if (isExists) {
-            double firstSideLenght = Math.abs(first.distanceTo(second));
-            double secondSideLenght = Math.abs(second.distanceTo(third));
-            double thirdSideLenght = Math.abs(third.distanceTo(first));
-            return firstSideLenght == secondSideLenght && firstSideLenght == thirdSideLenght;
-        }
-        return isExists;
+        return super.exists() && isRight();
+    }
+
+    private boolean isRight() {
+        double firstSideLenght = Math.abs(first.distanceTo(second));
+        double secondSideLenght = Math.abs(second.distanceTo(third));
+        double thirdSideLenght = Math.abs(third.distanceTo(first));
+        return nearlyEqual(firstSideLenght, secondSideLenght, EPSILON)
+                && nearlyEqual(firstSideLenght, thirdSideLenght, EPSILON);
     }
 }

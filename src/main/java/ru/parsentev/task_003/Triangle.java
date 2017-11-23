@@ -13,7 +13,9 @@ import static org.slf4j.LoggerFactory.getLogger;
  * @since 28.07.2016
  */
 public class Triangle {
+
     private static final Logger log = getLogger(Triangle.class);
+    protected static final double EPSILON = 0.0001;
 
     protected final Point first;
     protected final Point second;
@@ -40,9 +42,9 @@ public class Triangle {
             }
             double halfPerimeter = perimeter / 2.0;
             return Math.sqrt(halfPerimeter
-                            * (halfPerimeter - sideLenghts[0])
-                            * (halfPerimeter - sideLenghts[1])
-                            * (halfPerimeter - sideLenghts[2]));            
+                    * (halfPerimeter - sideLenghts[0])
+                    * (halfPerimeter - sideLenghts[1])
+                    * (halfPerimeter - sideLenghts[2]));
         } else {
             throw new IllegalStateException("Triangle does not exist");
         }
@@ -54,6 +56,20 @@ public class Triangle {
         double thirdSideLenght = Math.abs(third.distanceTo(first));
         double[] sideLenghts = {firstSideLenght, secondSideLenght, thirdSideLenght};
         return sideLenghts;
+    }
+
+    protected boolean nearlyEqual(double a, double b, double epsilon) {
+        final double absA = Math.abs(a);
+        final double absB = Math.abs(b);
+        final double diff = Math.abs(a - b);
+
+        if (a == b) {
+            return true;
+        } else if (a == 0 || b == 0 || diff < Float.MIN_NORMAL) {
+            return diff < (epsilon * Float.MIN_NORMAL);
+        } else {
+            return diff / Math.min((absA + absB), Float.MAX_VALUE) < epsilon;
+        }
     }
 
 }
