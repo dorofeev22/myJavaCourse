@@ -5,6 +5,7 @@ import ru.parsentev.task_002.Point;
 import ru.parsentev.task_003.Triangle;
 
 import static org.slf4j.LoggerFactory.getLogger;
+import ru.parsentev.task_003.CompareDoubleUtils;
 
 /**
  * TODO: comment
@@ -29,7 +30,7 @@ public class RightTriangle extends Triangle {
         double firstSideLenght = Math.abs(first.distanceTo(second));
         double secondSideLenght = Math.abs(second.distanceTo(third));
         double thirdSideLenght = Math.abs(third.distanceTo(first));
-        return nearlyEqual(firstSideLenght, secondSideLenght, EPSILON)
-                && nearlyEqual(firstSideLenght, thirdSideLenght, EPSILON);
+        return CompareDoubleUtils.nearlyEqual(firstSideLenght, secondSideLenght)
+                && CompareDoubleUtils.nearlyEqual(firstSideLenght, thirdSideLenght);
     }
 }

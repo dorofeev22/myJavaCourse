@@ -5,6 +5,7 @@ import ru.parsentev.task_002.Point;
 import ru.parsentev.task_003.Triangle;
 
 import static org.slf4j.LoggerFactory.getLogger;
+import ru.parsentev.task_003.CompareDoubleUtils;
 
 /**
  * TODO: comment
@@ -29,9 +30,9 @@ public class IsoscelesTriangle extends Triangle {
         double firstSideLenght = first.distanceTo(second);
         double secondSideLenght = second.distanceTo(third);
         double thirdSideLenght = third.distanceTo(first);
-        return nearlyEqual(firstSideLenght, secondSideLenght, EPSILON)
-                || nearlyEqual(secondSideLenght, thirdSideLenght, EPSILON)
-                || nearlyEqual(thirdSideLenght, firstSideLenght, EPSILON);
+        return CompareDoubleUtils.nearlyEqual(firstSideLenght, secondSideLenght)
+                || CompareDoubleUtils.nearlyEqual(secondSideLenght, thirdSideLenght)
+                || CompareDoubleUtils.nearlyEqual(thirdSideLenght, firstSideLenght);
     }
 
 }
