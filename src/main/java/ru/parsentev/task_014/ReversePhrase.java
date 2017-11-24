@@ -24,11 +24,6 @@ public class ReversePhrase {
     public String reverse() {
         List<String> words = Arrays.asList(line.split(" "));
         Collections.reverse(words);
-        StringBuilder reversalPhrase = new StringBuilder();
-        for (String word : words) {
-            reversalPhrase.append(word).append(" ");
-        }
-        String result = reversalPhrase.toString();
-        return result.substring(0, result.length() - 1);
+        return String.join(" ", words);
     }
 }
