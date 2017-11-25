@@ -19,19 +19,18 @@ public class Brackets {
 
     public boolean isCorrect() {
         char[] brackets = line.toCharArray();
-        char firstBracket = brackets[0];
-        if (Character.toString(firstBracket).equals("(")) {
-            int bracketsCalc = 0;
-            for (char ch : brackets) {
-                if (ch == '(') {
-                    bracketsCalc++;
-                }
-                if (ch == ')') {
-                    bracketsCalc--;
-                }
+        int openBracketsCount = 0;
+        for (char ch : brackets) {
+            if (openBracketsCount < 0) {
+                return false;
             }
-            return bracketsCalc == 0;
+            if (ch == '(') {
+                openBracketsCount++;
+            }
+            if (ch == ')') {
+                openBracketsCount--;
+            }
         }
-        return false;
+        return openBracketsCount == 0;
     }
 }
