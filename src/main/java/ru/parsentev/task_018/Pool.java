@@ -23,56 +23,78 @@ public class Pool {
     }
 
     public int maxUnion() {
-        int result = 0;
         List<int[][]> bunchs = new ArrayList<int[][]>();
         // выявляем множества единиц, складываем их в отдельные массивы, очищая при этом оригинальный от них
         while (getElementsSum(values) != 0) {
-            int[][] bunch = getClearArray(values);
+            int[][] bunch = getClearArrayCopy(values);
+
             for (int i = 0; i < values.length; i++) {
-                for (int j = 0; j < values[i].length; j++) {
-                    int[] previousRow = bunch[i];
-                    int elementMinIdx = 0;
-                    int elementMaxIdx = 0;
-                    for (int b = 0; b < values[i].length; b++) {
-                        int bElement = previousRow[b];
-                        if (bElement != 0 && elementMinIdx == 0) {
-                            elementMinIdx = b;
-                        }
-                        if (elementMinIdx != 0 && bElement == 0) {
-                            elementMaxIdx = b;
-                        }
-                    }
-                    boolean startBunch = false; // флаг, показывает что идет подсчет множества по строке
+                //isRowContainSubBunch = false;
+                int[] subBanchRowIdxs = new int[2];
+                boolean isRowContainSubBunch = false; // признак, что строка содержит подмножество
+                boolean startBunch = false; // флаг, показывает что идет подсчет множества по строке
+                int j;
+                for (j = 0; j < values[i].length; j++) {
                     int element = values[i][j];
-                    // если взятый элемент 1 и счета нет
+                    // если обнаруженный элемент 1 и счета нет
                     if (element != 0 && !startBunch) {
                         startBunch = true; // стартуем счет
-                        bunch[i][j] = 1;
+                        subBanchRowIdxs[0] = j; // кладем начальный индекс подмножества строки
                         values[i][j] = 0; // очищаем исходную матрицу от этого элемента
+                    // если обнаруженный элемент 1 и счет уже ведется
                     } else if (element != 0 && startBunch) {
-                        bunch[i][j] = 1;
                         values[i][j] = 0; // очищаем исходную матрицу от этого элемента
-                    } else if (element == 0 && startBunch) {
-                        startBunch = false;
-                        break; // прекращаем поиск по этой строке
+                    // если обнаруженный элемент 0 и счет ведется
                     }
+                    if (element == 0 && startBunch) {
+                        subBanchRowIdxs[1] = j - 1; // кладем конечный индекс подмножества строки
+                        startBunch = false; // прекращаем счет
+                        if (i > 0) { // если текущая строка не первая
+                            // анализируем может ли найденное подмножество на строке быть частью множества
+                            if (isSubBunchOfBunch(bunch[i-1], subBanchRowIdxs)) {
+                                // добавим (создадим) подстрочное множество в основное множество
+                                addRowElementsToArray(bunch, i, subBanchRowIdxs);
+                                isRowContainSubBunch = true;
+                            }
+                        } else {
+                            // если строка первая, то добавим (создадим) подстрочное множество в основное множество
+                            addRowElementsToArray(bunch, i, subBanchRowIdxs);
+                            isRowContainSubBunch = true;
+                            break; // и прекратим поиск следующего подмножества в этой строке
+                        }
+                    }
+                }
+                // если последний элемент строки был 1, то необходимо найденное подмножество проверить и учесть
+                if (startBunch) {
+                    subBanchRowIdxs[1] = j-1; // кладем конечный индекс подмножества строки (он излише увеличен после цикла)
+                    if (i > 0) { // если текущая строка не первая
+                        // анализируем может ли найденное подмножество на строке быть частью множества
+                        if (isSubBunchOfBunch(bunch[i-1], subBanchRowIdxs)) {
+                            // добавим (создадим) подстрочное множество в основное множество
+                            addRowElementsToArray(bunch, i, subBanchRowIdxs);
+                            isRowContainSubBunch = true;
+                        }
+                    } else {
+                        // если строка первая, то добавим (создадим) подстрочное множество в основное множество
+                        addRowElementsToArray(bunch, i, subBanchRowIdxs);
+                        isRowContainSubBunch = true;
+                    }
+                }
+                if (getElementsSum(bunch) > 0 && !isRowContainSubBunch) {
+                    break;
                 }
             }
             bunchs.add(bunch);
         }
+        int result = getCountOfMaxBunch(bunchs);
         return result;
     }
 
-    private int[][] getClearArray(int[][] a) {
-        for (int i = 0; i < a.length; i++) {
-            for (int j = 0; j < a[i].length; j++) {
-                a[i][j] = 0;
-            }
-        }
-        return a;
+    private static int[][] getClearArrayCopy(int[][] a) {
+        return new int[a.length][a[0].length];
     }
 
-    private int getElementsSum(int[][] a) {
+    private static int getElementsSum(int[][] a) {
         int result = 0;
         for (int i = 0; i < a.length; i++) {
             for (int j = 0; j < a[i].length; j++) {
@@ -80,6 +102,49 @@ public class Pool {
             }
         }
         return result;
+    }
+
+    private static boolean isSubBunchOfBunch(int[] previousBanchRowIdxs, int[] subBanchRowIdxs) {
+        Integer elementMinIdx = null;
+        int elementMaxIdx = 0;
+        // определяем границы множества на предыдущей строке
+        for (int b = 0; b < previousBanchRowIdxs.length; b++) {
+            int bElement = previousBanchRowIdxs[b];
+            if (bElement != 0 && elementMinIdx == null) {
+                elementMinIdx = b;
+            }
+            if (elementMinIdx != null && elementMaxIdx == 0 && bElement == 0) {
+                elementMaxIdx = b - 1;
+            }
+            if (bElement != 0 && b == previousBanchRowIdxs.length - 1) {
+                elementMaxIdx = b;
+            }
+        }
+        return elementMinIdx != null ?
+                elementMinIdx <= subBanchRowIdxs[1] && elementMaxIdx >= subBanchRowIdxs[0]
+                : true;
+    }
+
+    private static void addRowElementsToArray(int[][] array, int rowIdx, int[] subBanchRowIdxs) {
+        for (int z = 0; z < array[rowIdx].length; z++) {
+            if (z < subBanchRowIdxs[0] || z > subBanchRowIdxs[1]) {
+                array[rowIdx][z] = 0;
+            }
+            if (z >= subBanchRowIdxs[0] && z <= subBanchRowIdxs[1]) {
+                array[rowIdx][z] = 1;
+            }
+        }
+    }
+
+    private static int getCountOfMaxBunch(List<int[][]> bunchs) {
+        int maxCount = 0;
+        for (int[][] bunch : bunchs) {
+            int count = getElementsSum(bunch);
+            if (count > maxCount) {
+                maxCount = count;
+            }
+        }
+        return maxCount;
     }
 
 }

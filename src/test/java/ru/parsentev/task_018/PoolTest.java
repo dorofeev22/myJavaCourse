@@ -1,8 +1,6 @@
 package ru.parsentev.task_018;
 
-import org.junit.Ignore;
 import org.junit.Test;
-import ru.parsentev.task_015.CycleShift;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -13,7 +11,7 @@ import static org.junit.Assert.*;
  * @author parsentev
  * @since 28.07.2016
  */
-@Ignore
+
 public class PoolTest {
     @Test
     public void multi() {
