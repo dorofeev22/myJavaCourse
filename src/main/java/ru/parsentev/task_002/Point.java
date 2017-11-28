@@ -21,8 +21,23 @@ public class Point {
     }
 
     public double distanceTo(final Point point) {
-        int xDiff = x - point.x;
-        int yDiff = y - point.y;
+        int xDiff = getX() - point.getX();
+        int yDiff = getY() - point.getY();
         return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
     }
+
+    /**
+     * @return the x
+     */
+    public int getX() {
+        return x;
+    }
+
+    /**
+     * @return the y
+     */
+    public int getY() {
+        return y;
+    }
+
 }
